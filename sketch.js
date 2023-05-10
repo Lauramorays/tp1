@@ -1,4 +1,6 @@
+//array de objs trazo//
 let tfon = [];
+//pgraphic figura//
 
 //las cosas que se cargan antes de iniciar el sketch//
 function preload(){
@@ -27,4 +29,6 @@ function draw() {
     tfon[i].dibujar();
     tfon[i].movertrazo_f();
   }
+  //figura//
+
 }

@@ -5,14 +5,21 @@ class Trazo_f {
       this.posy = 500;
       this.posx_f =random(50, windowWidth - 50);
       this.randomcol = random(200, 360);
-      this.angulo =0;
+      this.angulo =90;
       this.dx = 0;
       this.dy = 0;
     }
   
     movertrazo_f() {
-      //modifica el angulo en funcion a la altura del alto//
-      this.angulo = map(this.posy, windowHeight, 0, 70, 120);
+      // modifica el angulo en función a la altura del eje y//
+      /*este condicional crea una zona en el centro de 220 pixeles 
+      a la dereche e izquierda que hacen que el rango del angulo sea entre 90 a 100, angulos mas rectos*/
+  if (this.posx_f > windowWidth/3-200 && this.posx_f < 2*windowWidth/3+200) {
+    this.angulo = map(this.posy, windowHeight, 0, 90, 100); // ángulo más recto
+  } else {
+    this.angulo = map(this.posy, windowHeight, 0, 70, 120); // ángulo normal
+  }
+  
       // perlin noise para hacer los trazos un toque mas organicos//
       this.angulo += noise(this.posy * 0.01, millis() * 0.001) * 100 - 20;
   
@@ -21,7 +28,7 @@ class Trazo_f {
   
       this.posy = this.posy - this.dy * this.vel;
       // mover los trazos a la izquierda y derecha,la direccion se cambia sumando o restando//
-      // si la posicion en x es menor a
+      // si la posicion en x es menor a la mitad de la pantalla//
       if (this.posx_f < windowWidth / 2) {
         this.posx_f = this.posx_f + this.dx * this.vel;
       } else {

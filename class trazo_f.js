@@ -1,18 +1,19 @@
 class Trazo_f {
     constructor(quetrazo) {
       this.quetrazo = quetrazo;
-      this.vel = 20;
+      this.vel = random(5,20);
       this.posy = 500;
-      this.posx_f = 0;
-      this.randomcol = 0;
-      this.angulo = 0;
+      this.posx_f =random(50, windowWidth - 50);
+      this.randomcol = random(200, 360);
+      this.angulo =0;
       this.dx = 0;
       this.dy = 0;
     }
   
     movertrazo_f() {
+      //modifica el angulo en funcion a la altura del alto//
+      this.angulo = map(this.posy, windowHeight, 0, 70, 120);
       // perlin noise para hacer los trazos un toque mas organicos//
-      this.angulo = map(this.posy, windowHeight, 0, 40, 100);
       this.angulo += noise(this.posy * 0.01, millis() * 0.001) * 100 - 20;
   
       this.dx = cos(radians(this.angulo));
@@ -22,9 +23,9 @@ class Trazo_f {
       // mover los trazos a la izquierda y derecha,la direccion se cambia sumando o restando//
       // si la posicion en x es menor a
       if (this.posx_f < windowWidth / 2) {
-        this.posx_f = this.posx_f - this.dx * this.vel;
-      } else {
         this.posx_f = this.posx_f + this.dx * this.vel;
+      } else {
+        this.posx_f = this.posx_f -this.dx * this.vel;
       }
   
       // espacio toroidal//
@@ -39,7 +40,7 @@ class Trazo_f {
       }
     }
   
-    dibujar() {
+    dibujar(){
       // hacer un obj paleta//
       push();
       tint(this.randomcol, 30, 255, 0.05);

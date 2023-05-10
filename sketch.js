@@ -1,7 +1,9 @@
 //array de objs trazo//
 let tfon = [];
 //pgraphic figura//
-
+let pgf;
+//array de objs figura//
+let tfig;
 //las cosas que se cargan antes de iniciar el sketch//
 function preload(){
   imgfondo = loadImage('imagenes/lienzofondo2.jpg');
@@ -16,11 +18,15 @@ function setup() {
   image(imgfondo, 0, 0);
   trazofondo.mask(mascaratfondo);
   colorMode(HSB);
-  
+  //objs trazo fondo//
   for (let i = 0; i < 5; i++) {
-    let trazo = new Trazo_f(trazofondo);
-    tfon.push(trazo);
+    let trazo_f = new Trazo_f(trazofondo);
+    tfon.push(trazo_f);
   }
+  //pgraphic figura//
+  tfig= new trazo_fig;
+  pgf= createGraphics(windowWidth,windowHeight*0.75);
+  pgf.position(0,windowHeight*0.70);
 }
 
 function draw() {
@@ -30,5 +36,7 @@ function draw() {
     tfon[i].movertrazo_f();
   }
   //figura//
-
+tfig.dibujar();
+tfig.mover();
+image(pgf,0,height - pgf.height);
 }

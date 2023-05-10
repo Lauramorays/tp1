@@ -2,7 +2,7 @@ class Trazo_f {
     constructor(quetrazo) {
       this.quetrazo = quetrazo;
       this.vel = random(5,20);
-      this.posy = 500;
+      this.posy = random(500);
       this.posx_f =random(50, windowWidth - 50);
       this.randomcol = random(200, 360);
       this.angulo =90;
@@ -13,9 +13,9 @@ class Trazo_f {
     movertrazo_f() {
       // modifica el angulo en función a la altura del eje y//
       /*este condicional crea una zona en el centro de 220 pixeles 
-      a la dereche e izquierda que hacen que el rango del angulo sea entre 90 a 100, angulos mas rectos*/
+      a la derecha e izquierda que hacen que el rango del angulo sea entre 90 a 100, angulos mas rectos*/
   if (this.posx_f > windowWidth/3-200 && this.posx_f < 2*windowWidth/3+200) {
-    this.angulo = map(this.posy, windowHeight, 0, 90, 100); // ángulo más recto
+    this.angulo = map(this.posy, windowHeight, 0, 90, 91); // ángulo más recto
   } else {
     this.angulo = map(this.posy, windowHeight, 0, 70, 120); // ángulo normal
   }

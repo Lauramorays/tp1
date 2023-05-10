@@ -1,4 +1,5 @@
 //trazos fondo//
+//hola//
 let quetrazo
 let vel =20;
 let posy=500;

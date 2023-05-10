@@ -3,7 +3,7 @@ let tfon = [];
 //pgraphic figura//
 let pgf;
 //array de objs figura//
-let tfig;
+let tfig = [];
 //las cosas que se cargan antes de iniciar el sketch//
 function preload(){
   imgfondo = loadImage('imagenes/lienzofondo2.jpg');
@@ -23,8 +23,11 @@ function setup() {
     let trazo_f = new Trazo_f(trazofondo);
     tfon.push(trazo_f);
   }
+  for (let j = 0; j<10;j++){
+    let trazo_fi = new trazo_fig;
+    tfig.push(trazo_fi);
+  }
   //pgraphic figura//
-  tfig= new trazo_fig;
   pgf= createGraphics(windowWidth,windowHeight*0.75);
   pgf.position(0,windowHeight*0.70);
 }
@@ -36,7 +39,9 @@ function draw() {
     tfon[i].movertrazo_f();
   }
   //figura//
-tfig.dibujar();
-tfig.mover();
-image(pgf,0,height - pgf.height);
+  for (let j = 0; j < tfig.length; j++) {  
+tfig[j].dibujar();
+tfig[j].mover();
+  }
+  image(pgf,0,height - pgf.height);
 }

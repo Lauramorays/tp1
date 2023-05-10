@@ -18,6 +18,7 @@ class trazo_fig{
       //espacio toriodal//
       if(this.posY_fig<-50){
         this.posY_fig=windowHeight;
+        this.posX_fig=random(this.tam_fig,windowWidth-this.tam_fig);
       } 
     }
   }

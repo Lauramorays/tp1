@@ -1,4 +1,4 @@
-
+let c;
 //las cosas que se cargan antes de iniciar el sketch//
 function preload(){
   imgfondo = loadImage('imagenes/lienzofondo2.jpg');
@@ -12,11 +12,11 @@ createCanvas(windowWidth,windowHeight);
 image(imgfondo, 0, 0);
 trazofondo.mask(mascaratfondo);
 colorMode(HSB);
+c = new Trazo_f(trazofondo);
 }
 
 function draw() {
 //fondo//
-blendMode(MULTIPLY);
-movertrazo_f();
-dibujar(trazofondo);
+c.dibujar();
+c.movertrazo_f();
 }

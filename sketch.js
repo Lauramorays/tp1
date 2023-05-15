@@ -39,9 +39,11 @@ function draw() {
     tfon[i].movertrazo_f();
   }
   //figura//
-  for (let j = 0; j < tfig.length; j++) {  
+  /*for (let j = 0; j < tfig.length; j++) {  
 tfig[j].dibujar();
 tfig[j].mover();
   }
   image(pgf,0,height - pgf.height);
+  //diagrama de estados//*/
+
 }

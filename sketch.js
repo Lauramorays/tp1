@@ -16,6 +16,7 @@ function setup() {
   createCanvas(windowWidth,windowHeight);
   //fondo//
   image(imgfondo, 0, 0);
+  trazofondo.resize(trazofondo.width/2, trazofondo.height/2);
   trazofondo.mask(mascaratfondo);
   colorMode(HSB);
   //objs trazo fondo//

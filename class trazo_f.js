@@ -48,8 +48,8 @@ class Trazo_f {
     }
     dibujar() {
       push();
-      tint(this.randomcol, 30, 255, 0.05); // ajusta la opacidad del color
-      image(this.quetrazo, this.posx_f, this.posy); // dibuja la imagen centrada en el origen de coordenadas
+      tint(this.randomcol, 30, 255, 0.02); 
+      image(this.quetrazo, this.posx_f, this.posy); 
       pop();
     }
     

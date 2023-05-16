@@ -19,7 +19,7 @@ class Trazo_f {
   } else {
     this.angulo = map(this.posy, windowHeight, 0, 70, 120); // ángulo normal
   }
-  
+   
       // perlin noise para hacer los trazos un toque mas organicos//
       this.angulo += noise(this.posy * 0.01, millis() * 0.001) * 100 - 20;
   
@@ -46,13 +46,11 @@ class Trazo_f {
         this.posx_f = random(50, windowWidth - 50);
       }
     }
-  
-    dibujar(){
-      // hacer un obj paleta//
+    dibujar() {
       push();
-      tint(this.randomcol, 30, 255, 0.05);
-      image(this.quetrazo, this.posx_f, this.posy);
+      tint(this.randomcol, 30, 255, 0.05); // ajusta la opacidad del color
+      image(this.quetrazo, this.posx_f, this.posy); // dibuja la imagen centrada en el origen de coordenadas
       pop();
     }
+    
   }
-  

@@ -1,21 +1,51 @@
 class Trazo_f {
     constructor(quetrazo) {
+      //variable para elegir el trazo//
       this.quetrazo = quetrazo;
+      //vars movimiento//
       this.vel = random(5,20);
       this.posy = random(500);
       this.posx_f =random(50, windowWidth - 50);
-      this.randomcol = random(200, 360);
       this.angulo =90;
       this.dx = 0;
       this.dy = 0;
+      //vars cambiar color//
+      this.velmouse;
+      this.difX;
+      this.difY;
+      this.brillo=255;
+      this.opacidad=0.05;
+      this.randomcol = random(200, 360);
+
+    }
+//funcion para dar color//
+    darcolor(){
+      //vars para calcular la velocidad//
+      //buscar alguna forma de amortiguar la transicion de los parametros//
+      this.difX =  abs(mouseX - pmouseX);
+      this.difY =  abs(mouseY - pmouseY);
+      this.velmouse = floor(this.difX +this.difY);
+      if (this.velmouse > 80) {
+        this.dibujar();
+        //hacer la interaccion de la opacidad//
+        this.brillo+= this.velmouse/40; //aumenta el valor del brillo
+      }
+      else{
+        //hacer la interaccion de opacidad//
+        this.brillo--;
+      }
+        //limitar el rango de brillo y opacidad(ajustar rango)//
+        this.brillo = constrain(this.brillo, 0, 255);
+        this.opacidad = constrain(this.opacidad, 0.01, 0.05);
     }
   
     movertrazo_f() {
 
       /*este condicional crea una zona en el centro de 220 pixeles 
       a la derecha e izquierda que hacen que el rango del angulo sea entre 90 a 100, angulos mas rectos*/
-  if (this.posx_f > windowWidth/3-200 && this.posx_f < 2*windowWidth/3+200) {
-    this.angulo = map(this.posy, windowHeight, 0, 80, 90); // ángulo más recto
+
+  if (this.posx_f > windowWidth/2-200 && this.posx_f < windowWidth/2+200) {
+    this.angulo = map(this.posy, windowHeight, 0, 85, 90); // angulo derecho
   } else {
     this.angulo = map(this.posy, windowHeight, 0, 70, 120); // ángulo normal
   }
@@ -48,9 +78,11 @@ class Trazo_f {
     }
     dibujar() {
       push();
-      tint(this.randomcol, 30, 255, 0.02); 
-      image(this.quetrazo, this.posx_f, this.posy); 
+      translate(this.posx_f,this.posy);
+      tint(this.randomcol, 30, this.brillo, this.opacidad); 
+      image(this.quetrazo, 0,0); 
       pop();
     }
+    
     
   }

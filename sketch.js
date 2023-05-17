@@ -13,6 +13,7 @@ function preload(){
 }
 
 function setup() {
+  blendMode(HARD_LIGHT);
   createCanvas(windowWidth,windowHeight);
   //fondo//
   image(imgfondo, 0, 0);
@@ -20,7 +21,7 @@ function setup() {
   trazofondo.mask(mascaratfondo);
   colorMode(HSB);
   //objs trazo fondo//
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 10; i++) {
     let trazo_f = new Trazo_f(trazofondo);
     tfon.push(trazo_f);
   }
@@ -34,17 +35,20 @@ function setup() {
 }
 
 function draw() {
-  //fondo//
+ 
   for (let i = 0; i < tfon.length; i++) {
+    push();
     tfon[i].dibujar();
     tfon[i].movertrazo_f();
+    pop();
+    tfon[i].darcolor();
   }
-  //figura//
-  /*for (let j = 0; j < tfig.length; j++) {  
+
+ /* //figura//
+  for (let j = 0; j < tfig.length; j++) {  
 tfig[j].dibujar();
 tfig[j].mover();
   }
-  image(pgf,0,height - pgf.height);
-  //diagrama de estados//*/
-
+  image(pgf,0,height - pgf.height);*/
+  //diagrama de estados//
 }

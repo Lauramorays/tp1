@@ -8,6 +8,7 @@ class trazo_fig{
       //var img de trazo//
       //this.imgt_fig=imgt_fig;//
       this.color_fig = color(random(360), random(50, 100), random(50, 100));
+      this.angulofig;
     }
     //funciones y metodos//
     dibujar(){

@@ -13,7 +13,6 @@ function preload(){
 }
 
 function setup() {
-  blendMode(HARD_LIGHT);
   createCanvas(windowWidth,windowHeight);
   //fondo//
   image(imgfondo, 0, 0);
@@ -35,7 +34,6 @@ function setup() {
 }
 
 function draw() {
- 
   for (let i = 0; i < tfon.length; i++) {
     push();
     tfon[i].dibujar();
@@ -44,11 +42,12 @@ function draw() {
     tfon[i].darcolor();
   }
 
- /* //figura//
+ //figura//
   for (let j = 0; j < tfig.length; j++) {  
 tfig[j].dibujar();
 tfig[j].mover();
   }
-  image(pgf,0,height - pgf.height);*/
+//pgraphic//
+  image(pgf,0,height - pgf.height);
   //diagrama de estados//
 }

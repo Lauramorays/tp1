@@ -5,7 +5,7 @@ class Trazo_f {
       //vars movimiento//
       this.vel = random(5,20);
       this.posy = random(500);
-      this.posx_f =random(50, windowWidth - 50);
+      this.posx_f =random(0, windowWidth - 50);
       this.angulo =90;
       this.dx = 0;
       this.dy = 0;
@@ -35,19 +35,19 @@ class Trazo_f {
         this.brillo--;
       }
         //limitar el rango de brillo y opacidad(ajustar rango)//
-        this.brillo = constrain(this.brillo, 0, 255);
+        this.brillo = constrain(this.brillo, 100, 255);
         this.opacidad = constrain(this.opacidad, 0.01, 0.05);
     }
   
     movertrazo_f() {
 
       /*este condicional crea una zona en el centro de 220 pixeles 
-      a la derecha e izquierda que hacen que el rango del angulo sea entre 90 a 100, angulos mas rectos*/
+      a la derecha e izquierda que hacen que el rango del angulo sea entre 85 a 90, angulos mas rectos*/
 
   if (this.posx_f > windowWidth/2-200 && this.posx_f < windowWidth/2+200) {
     this.angulo = map(this.posy, windowHeight, 0, 85, 90); // angulo derecho
   } else {
-    this.angulo = map(this.posy, windowHeight, 0, 70, 120); // ángulo normal
+    this.angulo = map(this.posy, windowHeight, 0, 45, 120); // ángulo normal
   }
    
       // perlin noise para hacer los trazos un toque mas organicos//
@@ -73,7 +73,7 @@ class Trazo_f {
         // le asigna un color random al siguiente trazo que sale desde abajo//
         this.randomcol = random(200, 360);
         // le asigna una posicion en x al siguiente trazo que sale desde abajo//
-        this.posx_f = random(50, windowWidth - 50);
+        this.posx_f = random(0, windowWidth - 50);
       }
     }
     dibujar() {

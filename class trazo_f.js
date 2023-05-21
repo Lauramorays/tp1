@@ -29,6 +29,8 @@ class Trazo_f {
         this.dibujar();
         //hacer la interaccion de la opacidad//
         this.brillo+= this.velmouse/40; //aumenta el valor del brillo
+        //agregar lerp//
+        
       }
       else{
         //hacer la interaccion de opacidad//

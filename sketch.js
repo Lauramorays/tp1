@@ -1,15 +1,22 @@
+
 //array de objs trazo//
 let tfon = [];
-//pgraphic figura//
-let pgf;
 //array de objs figura//
 let tfig = [];
+//mascara figura//
 //las cosas que se cargan antes de iniciar el sketch//
 function preload(){
+  //img simil lienzo//
   imgfondo = loadImage('imagenes/lienzofondo2.jpg');
   //trazo del fondo//
   trazofondo = loadImage('trazos/trazofondo_13.png');
+  //mascara fondo//
   mascaratfondo= loadImage('trazos/trazofondo_14_a.png');
+  //recursos figura//
+  //img trazo figura//
+  //mascara figura//
+  mascarafigura = loadImage('trazos/mascara_figura.jpg');
+ // mascarafigura =loadImage('ruta e img');//
 }
 
 function setup() {
@@ -25,12 +32,9 @@ function setup() {
     tfon.push(trazo_f);
   }
   for (let j = 0; j<10;j++){
-    let trazo_fi = new trazo_fig;
+    let trazo_fi = new trazo_fig(mascarafigura);
     tfig.push(trazo_fi);
   }
-  //pgraphic figura//
-  pgf= createGraphics(windowWidth,windowHeight*0.75);
-  pgf.position(0,windowHeight*0.70);
 }
 
 function draw() {
@@ -47,7 +51,5 @@ function draw() {
 tfig[j].dibujar();
 tfig[j].mover();
   }
-//pgraphic//
-  image(pgf,0,height - pgf.height);
   //diagrama de estados//
 }

@@ -4,6 +4,7 @@ let tfon = [];
 //array de objs figura//
 let tfig = [];
 //mascara figura//
+let mascarafigura;
 //las cosas que se cargan antes de iniciar el sketch//
 function preload(){
   //img simil lienzo//
@@ -12,11 +13,11 @@ function preload(){
   trazofondo = loadImage('trazos/trazofondo_13.png');
   //mascara fondo//
   mascaratfondo= loadImage('trazos/trazofondo_14_a.png');
+
   //recursos figura//
   //img trazo figura//
   //mascara figura//
-  mascarafigura = loadImage('trazos/mascara_figura.jpg');
- // mascarafigura =loadImage('ruta e img');//
+  mascarafigura =loadImage('trazos/mascara_figura2.jpg');
 }
 
 function setup() {
@@ -42,14 +43,19 @@ function draw() {
     push();
     tfon[i].dibujar();
     tfon[i].movertrazo_f();
-    pop();
     tfon[i].darcolor();
+    pop();
   }
 
- //figura//
-  for (let j = 0; j < tfig.length; j++) {  
-tfig[j].dibujar();
-tfig[j].mover();
+
+  for (let j = 0; j < tfig.length; j++) {
+      push();
+      tfig[j].dibujar();
+      tfig[j].mover();
+      pop();
   }
   //diagrama de estados//
+}
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
 }

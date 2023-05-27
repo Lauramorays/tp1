@@ -1,15 +1,23 @@
+
 //array de objs trazo//
 let tfon = [];
-//pgraphic figura//
-let pgf;
 //array de objs figura//
 let tfig = [];
+//mascara figura//
+let mascarafigura;
 //las cosas que se cargan antes de iniciar el sketch//
 function preload(){
+  //img simil lienzo//
   imgfondo = loadImage('imagenes/lienzofondo2.jpg');
   //trazo del fondo//
   trazofondo = loadImage('trazos/trazofondo_13.png');
+  //mascara fondo//
   mascaratfondo= loadImage('trazos/trazofondo_14_a.png');
+
+  //recursos figura//
+  //img trazo figura//
+  //mascara figura//
+  mascarafigura =loadImage('trazos/mascara_figura2.jpg');
 }
 
 function setup() {
@@ -25,12 +33,9 @@ function setup() {
     tfon.push(trazo_f);
   }
   for (let j = 0; j<10;j++){
-    let trazo_fi = new trazo_fig;
+    let trazo_fi = new trazo_fig(mascarafigura);
     tfig.push(trazo_fi);
   }
-  //pgraphic figura//
-  pgf= createGraphics(windowWidth,windowHeight*0.75);
-  pgf.position(0,windowHeight*0.70);
 }
 
 function draw() {
@@ -38,16 +43,19 @@ function draw() {
     push();
     tfon[i].dibujar();
     tfon[i].movertrazo_f();
-    pop();
     tfon[i].darcolor();
+    pop();
   }
 
- //figura//
-  for (let j = 0; j < tfig.length; j++) {  
-tfig[j].dibujar();
-tfig[j].mover();
+
+  for (let j = 0; j < tfig.length; j++) {
+      push();
+      tfig[j].dibujar();
+      tfig[j].mover();
+      pop();
   }
-//pgraphic//
-  image(pgf,0,height - pgf.height);
   //diagrama de estados//
+}
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
 }

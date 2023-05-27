@@ -85,7 +85,7 @@ if (this.posx_f > windowWidth/2-200 && this.posx_f < windowWidth/2+200) {
     if (this.posx_f > windowWidth/2-200 && this.posx_f < windowWidth/2+200) {
       rotate(radians(this.angulo+90));
     }else{
-      rotate(radians(this.angulo-90));
+      rotate(radians(this.angulo));
     }
     tint(this.randomcol, 30, this.brillo, this.opacidad); 
     image(this.quetrazo, 0,0); 

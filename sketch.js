@@ -17,13 +17,13 @@ function preload(){
   //recursos figura//
   //img trazo figura//
   //mascara figura//
-  mascarafigura =loadImage('trazos/mascara_figura2.jpg');
+  mascarafigura =loadImage('trazos/mascara_figura3.jpg');
 }
 
 function setup() {
   createCanvas(windowWidth,windowHeight);
   //fondo//
-  image(imgfondo, 0, 0);
+  //image(imgfondo, 0, 0);
   trazofondo.resize(trazofondo.width/2, trazofondo.height/2);
   trazofondo.mask(mascaratfondo);
   colorMode(HSB);

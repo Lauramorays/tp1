@@ -5,8 +5,8 @@ class trazo_fig {
     //movimiento//
     this.tam_fig = 10;
     this.margen_tfig=10;
-    this.posX_fig=random(height);
-    this.posY_fig=height;
+    this.posX_fig=random(this.margen_tfig,width-this.margen_tfig);
+    this.posY_fig=random(this.margen_tfig,height-this.margen_tfig);
     this.dx_fig;
     this.dy_fig;
     this.vel_fig = random(2, 7);
@@ -99,8 +99,8 @@ class trazo_fig {
 
   //funcion volver al estado inicial del trazo//
   saltaralprincipio() {
-    this.posY_fig = random(height);
-    this.posX_fig= random(width);
+    this.posX_fig=random(this.margen_tfig,width-this.margen_tfig);
+    this.posY_fig=random(this.margen_tfig,height-this.margen_tfig);
       this.color_fig = color(random(360), random(50, 100), random(50, 100));
         // variable para cambiar a una imagen aleatoria dentro del array de imgs//
       this.cual = int(random(this.trazo.length));
@@ -121,7 +121,7 @@ if (this.esta_en_margenes() && this.pertenece_a_la_forma()) {
   //trazos con imgs//
    this.pgf.image(this.trazo[this.cual],this.posX_fig,this.posY_fig);
    //trazos circulos//
-  //this.pgf.rect(this.posX_fig, this.posY_fig, this.tam_fig, this.tam_fig);
+  //this.pgf.ellipse(this.posX_fig, this.posY_fig, this.tam_fig, this.tam_fig);
   pop();
 }
 

@@ -35,11 +35,13 @@ function preload() {
 
  // Carga de las imágenes de trazos figura en el array imgs_trazos
 for (let i = 0; i < urls.length; i++) {
-  let img = loadImage(urls[i], () => {
+  // hay que crear una imagen create img, en cada vuelta del ciclo y usar de mascara imgs_trazos
+  let img = loadImage(urls[i],() => {
+    //la mascara es media al pedo si la img ya es transparente
     imgs_trazos[i].filter(INVERT); // Aplicar el filtro invert a la imagen en la posición i del array
     imgs_trazos[i].mask(imgs_trazos[i]); // Enmascarar el trazo con la misma imagen del trazo
     //se puede aplicar un resize o hacer la mascara con un circulo o hacer las imagenes mas chicas//
-    //imgs_trazos[i].resize(100,50);
+    //imgs_trazos[i].resize(20,20);
   });
   imgs_trazos.push(img);
 }

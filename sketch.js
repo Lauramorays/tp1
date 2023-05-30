@@ -1,44 +1,74 @@
-
-//array de objs trazo//
+// Array de objetos Trazo_f
 let tfon = [];
-//array de objs figura//
+// Array de objetos trazo_fig
 let tfig = [];
-//mascara figura//
+// Mascara figura
 let mascarafigura;
-//las cosas que se cargan antes de iniciar el sketch//
-function preload(){
-  //img simil lienzo//
-  imgfondo = loadImage('imagenes/lienzofondo2.jpg');
-  //trazo del fondo//
-  trazofondo = loadImage('trazos/trazofondo_13.png');
-  //mascara fondo//
-  mascaratfondo= loadImage('trazos/trazofondo_14_a.png');
+// Array de imágenes de trazos
+let imgs_trazos = [];
 
-  //recursos figura//
-  //img trazo figura//
-  //mascara figura//
-  mascarafigura =loadImage('trazos/mascara_figura3.jpg');
+// Carga de recursos antes de iniciar el sketch
+function preload() {
+  // Imagen simil lienzo
+  imgfondo = loadImage('imagenes/lienzofondo2.jpg');
+  // Trazo del fondo
+  trazofondo = loadImage('trazos/trazofondo_13.png');
+  // Mascara fondo
+  mascaratfondo = loadImage('trazos/trazofondo_14_a.png');
+
+  // Recursos figura
+  // URLs de las imágenes de trazo figura
+  let urls = [
+    "trazos/trazofondo_01.png",
+    "trazos/trazofondo_02.png",
+    "trazos/trazofondo_03.png",
+    "trazos/trazofondo_04.png",
+    "trazos/trazofondo_05.png",
+    "trazos/trazofondo_06.png",
+    "trazos/trazofondo_07.png",
+    "trazos/trazofondo_08.png",
+    "trazos/trazofondo_09.png"
+  ];
+
+  // Carga de la máscara figura
+  mascarafigura = loadImage('trazos/mascara_figura3.jpg');
+
+ // Carga de las imágenes de trazos figura en el array imgs_trazos
+for (let i = 0; i < urls.length; i++) {
+  let img = loadImage(urls[i], () => {
+    imgs_trazos[i].filter(INVERT); // Aplicar el filtro invert a la imagen en la posición i del array
+    imgs_trazos[i].mask(imgs_trazos[i]); // Enmascarar el trazo con la misma imagen del trazo
+    //se puede aplicar un resize o hacer la mascara con un circulo o hacer las imagenes mas chicas//
+    //imgs_trazos[i].resize(100,50);
+  });
+  imgs_trazos.push(img);
+}
+
 }
 
 function setup() {
-  createCanvas(windowWidth,windowHeight);
-  //fondo//
-  //image(imgfondo, 0, 0);
-  trazofondo.resize(trazofondo.width/2, trazofondo.height/2);
+  createCanvas(windowWidth, windowHeight);
+
+  // Fondo
+  trazofondo.resize(trazofondo.width / 2, trazofondo.height / 2);
   trazofondo.mask(mascaratfondo);
   colorMode(HSB);
-  //objs trazo fondo//
+
+  // Objetos Trazo_f
   for (let i = 0; i < 10; i++) {
     let trazo_f = new Trazo_f(trazofondo);
     tfon.push(trazo_f);
   }
-  for (let j = 0; j<10;j++){
-    let trazo_fi = new trazo_fig(mascarafigura);
+
+  // Objetos trazo_fig
+  for (let j = 0; j < 10; j++) {
+    let trazo_fi = new trazo_fig(mascarafigura,imgs_trazos);
     tfig.push(trazo_fi);
   }
 }
 
 function draw() {
+
   for (let i = 0; i < tfon.length; i++) {
     push();
     tfon[i].dibujar();
@@ -47,15 +77,14 @@ function draw() {
     pop();
   }
 
-
   for (let j = 0; j < tfig.length; j++) {
-      push();
-      tfig[j].dibujar();
-      tfig[j].mover();
-      pop();
+    push();
+    tfig[j].dibujar();
+    tfig[j].mover();
+    pop();
   }
-  //diagrama de estados//
 }
+
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }

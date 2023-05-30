@@ -9,6 +9,7 @@ class Trazo_f {
     this.angulo =90;
     this.dx = 0;
     this.dy = 0;
+    this.vueltas;
     //vars cambiar color//
     this.velmouse;
     this.difX;
@@ -42,6 +43,17 @@ class Trazo_f {
         this.brillo = constrain(this.brillo, 100, 255);
         this.opacidad = constrain(this.opacidad, 0.01, 0.05);
     }
+
+             // espacio toroidal//
+             saltaralprincipio_f() {
+  // resetea el trazo a afuera de la pantalla abajo//
+  this.posy = windowHeight;
+  // le asigna un color random al siguiente trazo que sale desde abajo//
+  this.randomcol = random(200, 360);
+  // le asigna una posicion en x al siguiente trazo que sale desde abajo//
+  this.posx_f = random(0, windowWidth - 50);
+          
+                }
   
     movertrazo_f() {
 
@@ -69,17 +81,15 @@ class Trazo_f {
         this.posx_f = this.posx_f -this.dx * this.vel;
       }
   
-      // espacio toroidal//
+ 
       // cuando la posicion en y pasa los -80, resetea la posicion//
       if (this.posy < -80) {
-        // resetea el trazo a afuera de la pantalla abajo//
-        this.posy = windowHeight;
-        // le asigna un color random al siguiente trazo que sale desde abajo//
-        this.randomcol = random(200, 360);
-        // le asigna una posicion en x al siguiente trazo que sale desde abajo//
-        this.posx_f = random(0, windowWidth - 50);
+        this.saltaralprincipio_f();
       }
     }
+
+
+
     dibujar() {
       push();
       translate(this.posx_f,this.posy);

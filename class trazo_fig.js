@@ -1,3 +1,7 @@
+//to do list//
+//arreglar angulos para que sean mas curvados//
+/*transformar los trazos cuando estén fuera de la mascara para que sean del mismo colo del fondo y bajarles 
+la opacidad progresivamente*/
 class trazo_fig {
   constructor(imagen,trazo) {
     //pgraphic//

@@ -79,12 +79,16 @@ function draw() {
     pop();
   }
 
+
+
   for (let j = 0; j < tfig.length; j++) {
     push();
     tfig[j].dibujar();
     tfig[j].mover();
     pop();
   }
+  //esto es para debuggear y para hacer algo similar par dibujar un trazo a la derecha o izquierda//
+  console.log(tfig[0].donde_dibujo());
 }
 
 function windowResized() {

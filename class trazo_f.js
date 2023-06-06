@@ -1,3 +1,8 @@
+//to do list//
+/*hacer algo con el fondo para que no se acumulen tantos trazos(bajar la opacidad prograsivamente
+o limitar la cantidad de vueltas que dan los caminantes*/
+//seguir arreglando el angulo para que no quede pelado en el medio//
+//hacer la paleta de colores//
 class Trazo_f {
   constructor(quetrazo) {
     //variable para elegir el trazo//
@@ -57,7 +62,7 @@ class Trazo_f {
     movertrazo_f() {
     let noise_angulo;
     let anguloMin, anguloMax;
-    /*este condicional crea una zona en el centro de 220 pixeles 
+    /*este condicional crea una zona en el centro de 200 pixeles 
     a la derecha e izquierda que hacen que el rango del angulo sea entre 85 a 90, angulos mas rectos*/
 
   if (this.posx_f > windowWidth/2-200 && this.posx_f < windowWidth/2+200) {

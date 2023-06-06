@@ -4,7 +4,7 @@ class Trazo_f {
     this.quetrazo = quetrazo;
     //vars movimiento//
     this.vel = random(5,20);
-    this.posy = random(500);
+    this.posy = height;
     this.posx_f =random(0, windowWidth - 50);
     this.angulo =90;
     this.dx = 0;
@@ -15,14 +15,13 @@ class Trazo_f {
     this.difX;
     this.difY;
     this.brillo=255;
-    this.opacidad=0.05;
+    this.opacidad=0.02;
     this.randomcol = random(200, 360);
-
+   
   }
 //funcion para dar color//
     darcolor(){
       //vars para calcular la velocidad//
-      //buscar alguna forma de amortiguar la transicion de los parametros//
       this.difX =  abs(mouseX - pmouseX);
       this.difY =  abs(mouseY - pmouseY);
       this.velmouse = floor(this.difX +this.difY);
@@ -47,7 +46,7 @@ class Trazo_f {
              // espacio toroidal//
              saltaralprincipio_f() {
   // resetea el trazo a afuera de la pantalla abajo//
-  this.posy = windowHeight;
+  this.posy =height;
   // le asigna un color random al siguiente trazo que sale desde abajo//
   this.randomcol = random(200, 360);
   // le asigna una posicion en x al siguiente trazo que sale desde abajo//
@@ -56,18 +55,23 @@ class Trazo_f {
                 }
   
     movertrazo_f() {
-
+    let noise_angulo;
+    let anguloMin, anguloMax;
     /*este condicional crea una zona en el centro de 220 pixeles 
     a la derecha e izquierda que hacen que el rango del angulo sea entre 85 a 90, angulos mas rectos*/
 
   if (this.posx_f > windowWidth/2-200 && this.posx_f < windowWidth/2+200) {
-    this.angulo = map(this.posy, windowHeight, 0, 85, 90); // angulo derecho
+    noise_angulo=(noise(this.posy * 0.01, millis() * 0.001) * 100 - 20) * 0.5;
+    anguloMin = 85;
+    anguloMax = 95;
   } else {
-    this.angulo = map(this.posy, windowHeight, 0, 45, 120); // ángulo normal
+    noise_angulo=noise(this.posy * 0.01, millis() * 0.001) * 100 - 20;
+    anguloMin = 45;
+  anguloMax = 120;
   }
-   
+  this.angulo = map(this.posy, windowHeight, 0, anguloMin, anguloMax);
       // perlin noise para hacer los trazos un toque mas organicos//
-      this.angulo += noise(this.posy * 0.01, millis() * 0.001) * 100 - 20;
+      this.angulo += noise_angulo
   
       this.dx = cos(radians(this.angulo));
       this.dy = sin(radians(this.angulo));

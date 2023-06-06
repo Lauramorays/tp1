@@ -13,7 +13,7 @@ class trazo_fig {
     this.angulo_fig;
     this.largo_trazo = 0;
     //variable para el maximo del largo de un trazo//
-    this.max_largo_trazo = 1;
+    this.max_largo_trazo = 0.05;
     this.color_fig = color(random(360), random(50, 100), random(50, 100));
     this.variacion = random(-180, 80);
     this.saltar_principio_timer = 0;
@@ -67,6 +67,7 @@ class trazo_fig {
     if (millis() > this.saltar_principio_timer + this.saltar_principio_intervalo) {
       
       // Si se supera el máximo del trazo o se sale del límite de la mascara
+      //---------------quitar el or----------//
       if (this.largo_trazo >= this.max_largo_trazo || !this.pertenece_a_la_forma()) {
         this.saltaralprincipio();
         this.saltar_principio_timer = millis();
@@ -75,14 +76,18 @@ class trazo_fig {
 
     } 
 
-
+    
     //angulo//
     this.angulo_fig = 0;
 
-    // valores angulo x en funcion al mouse//
-
-    //la posicion incial original, variacion es una variacion random, height limite superior
-    this.angulo_fig = map((mouseY + this.variacion + height) % height, height, 0, 210, 300);
+    // valores angulo x en funcion al mouse y//
+    if (mouseY >= height/2) {
+      // En la mitad inferior de la pantalla, ángulos a la izquierda
+      this.angulo_fig = map((mouseY + this.variacion + height) % height, height/2, height, 210, 270);
+    } else {
+      // En la mitad superior de la pantalla, ángulos a la derecha
+      this.angulo_fig = map((mouseY + this.variacion) % height, 0, height/2, 270, 300);
+    }
     //rango derecha 210,270
     //rango izquierda 270,300 
    
@@ -95,11 +100,28 @@ class trazo_fig {
     this.posX_fig = this.posX_fig + this.dx_fig;
     this.posY_fig = this.posY_fig + this.dy_fig;
   }
+
+  //idea para dibujar dos grupos diferentes de trazos 
+  donde_dibujo(){
+ if(mouseY < height/2){
+ return "derecha";
+ }else if(mouseY > height/2){
+  return "izquierda";
+ }
+  }
   
+ 
 
   //funcion volver al estado inicial del trazo//
   saltaralprincipio() {
-    this.posX_fig=random(this.margen_tfig,width-this.margen_tfig);
+    if (mouseY >= height/2) {
+      // Generar trazos al azar desde el punto cero de la pantalla a la mitad (izquierda)
+      this.posX_fig = random(0, width/2);
+    } else if (mouseY < height/2) {
+      // Generar trazos al azar desde la mitad hasta el ancho de la pantalla (derecha)
+      this.posX_fig = random(width/2, width);
+    }
+  
     this.posY_fig=random(this.margen_tfig,height-this.margen_tfig);
       this.color_fig = color(random(360), random(50, 100), random(50, 100));
         // variable para cambiar a una imagen aleatoria dentro del array de imgs//
@@ -107,7 +129,8 @@ class trazo_fig {
   }
    
 
-
+/*se podrian añadir dos metodos, dibujar derecha e izquierda en función al mouse
+para que en lugar de cambiar la posicion pudiera generar otro segmento de trazos*/
   dibujar() {
 // Dibujar el trazo en el lienzo gráfico si pertenece a la forma y no está fuera de los margenes//
 if (this.esta_en_margenes() && this.pertenece_a_la_forma()) {
@@ -119,11 +142,13 @@ if (this.esta_en_margenes() && this.pertenece_a_la_forma()) {
   this.pgf.tint(this.color_fig);
   // hacer la mascara de los trazos
   //trazos con imgs//
-   this.pgf.image(this.trazo[this.cual],this.posX_fig,this.posY_fig);
+   //this.pgf.image(this.trazo[this.cual],this.posX_fig,this.posY_fig);
    //trazos circulos//
-  //this.pgf.ellipse(this.posX_fig, this.posY_fig, this.tam_fig, this.tam_fig);
+  this.pgf.ellipse(this.posX_fig, this.posY_fig, this.tam_fig, this.tam_fig);
   pop();
 }
+  /*---------------agregar un else if con como argumento !this.pertenece_a_la_forma()en el que el trazo decresca su opacidad
+  y cambie para mimetizarse con el fondo----------/*/
 
 
     
@@ -132,4 +157,4 @@ if (this.esta_en_margenes() && this.pertenece_a_la_forma()) {
   }
 
 }
-
+//paletas de colores//

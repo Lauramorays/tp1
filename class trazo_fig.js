@@ -37,6 +37,14 @@ class trazo_fig {
 
   //metodos 
 
+  //idea para dibujar dos grupos diferentes de trazos 
+  donde_dibujo(){
+    if(mouseY < height/2){
+    return "derecha";
+    }else if(mouseY > height/2){
+     return "izquierda";
+    }
+     } 
     // metodo  para verificar si los trazos están en los píxeles oscuros de la imagen de mascara
     pertenece_a_la_forma() {
       let x_en_img = floor(map(this.posX_fig, 0, width, 0, this.imagen.width));
@@ -105,14 +113,7 @@ class trazo_fig {
     this.posY_fig = this.posY_fig + this.dy_fig;
   }
 
-  //idea para dibujar dos grupos diferentes de trazos 
-  donde_dibujo(){
- if(mouseY < height/2){
- return "derecha";
- }else if(mouseY > height/2){
-  return "izquierda";
- }
-  }
+
   
  
 

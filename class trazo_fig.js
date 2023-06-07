@@ -1,7 +1,7 @@
 //to do list//
 //arreglar angulos para que sean mas curvados//
-/*transformar los trazos cuando estén fuera de la mascara para que sean del mismo colo del fondo y bajarles 
-la opacidad progresivamente*/
+/*pensar como arreglar que aveces se hacen puntos y bajarles 
+la opacidad progresivamente a medida que se hacen largos */
 class trazo_fig {
   constructor(imagen,trazo) {
     //pgraphic//
@@ -13,12 +13,16 @@ class trazo_fig {
     this.posY_fig=random(this.margen_tfig,height-this.margen_tfig);
     this.dx_fig;
     this.dy_fig;
+    this.angulo_izquierda;
+    this.angulo_derecha;
     this.vel_fig = random(2, 7);
     this.angulo_fig;
     this.largo_trazo = 0;
     //variable para el maximo del largo de un trazo//
     this.max_largo_trazo = 0.05;
+    //color
     this.color_fig = color(random(360), random(50, 100), random(50, 100));
+    this.color_fig2=color(0,0,0);
     this.variacion = random(-180, 80);
     this.saltar_principio_timer = 0;
     // Intervalo mínimo en milisegundos entre saltos al principio
@@ -69,7 +73,7 @@ class trazo_fig {
 //funcion mover//
   mover() { 
 
-  
+   console.log(this.largo_trazo);
     // Incrementar o decrementar largo_trazo en función de mouseX//
     this.largo_trazo+= map(mouseX, 0, width, -1, 1);
 
@@ -90,18 +94,19 @@ class trazo_fig {
 
     
     //angulo//
-    this.angulo_fig = 0;
-
-    // valores angulo x en funcion al mouse y//
-    if (mouseY >= height/2) {
-      // En la mitad inferior de la pantalla, ángulos a la izquierda
-      this.angulo_fig = map((mouseY + this.variacion + height) % height, height/2, height, 210, 270);
-    } else {
-      // En la mitad superior de la pantalla, ángulos a la derecha
-      this.angulo_fig = map((mouseY + this.variacion) % height, 0, height/2, 270, 300);
-    }
-    //rango derecha 210,270
+     //rango derecha 210,270
+     this.angulo_derecha=map((mouseY + this.variacion + height) % height, height/2, height, 270, 180);
+     this.angulo_izquierda= map((mouseY + this.variacion) % height, 0, height/2, 270, 300);
     //rango izquierda 270,300 
+    // valores angulo x en funcion al mouse y//
+    if (mouseY > height/2) {
+      // En la mitad inferior de la pantalla, ángulos a la izquierda
+      this.angulo_fig =this.angulo_derecha;
+     } else if( mouseY< height/2) {
+      // En la mitad superior de la pantalla, ángulos a la derecha
+      this.angulo_fig =this.angulo_izquierda;
+    }
+   
    
     //direccion en x
     this.dx_fig = this.vel_fig * cos(radians(this.angulo_fig));
@@ -119,6 +124,7 @@ class trazo_fig {
 
   //funcion volver al estado inicial del trazo//
   saltaralprincipio() {
+    //generar trazos en funcion a la mitad//
     if (mouseY >= height/2) {
       // Generar trazos al azar desde el punto cero de la pantalla a la mitad (izquierda)
       this.posX_fig = random(0, width/2);
@@ -126,7 +132,9 @@ class trazo_fig {
       // Generar trazos al azar desde la mitad hasta el ancho de la pantalla (derecha)
       this.posX_fig = random(width/2, width);
     }
-  
+    /*si la posicion en x del trazo es menor a la mitad deberian moverse a la derecha
+    para eso deberia invocar o el map derecho o cambiar  this.posX_fig = this.posX_fig + this.dx_fig;
+    o ambos y vicebersa*/
     this.posY_fig=random(this.margen_tfig,height-this.margen_tfig);
       this.color_fig = color(random(360), random(50, 100), random(50, 100));
         // variable para cambiar a una imagen aleatoria dentro del array de imgs//
@@ -137,6 +145,9 @@ class trazo_fig {
 /*se podrian añadir dos metodos, dibujar derecha e izquierda en función al mouse
 para que en lugar de cambiar la posicion pudiera generar otro segmento de trazos*/
   dibujar() {
+//lineas debug//
+    this.pgf.line(0,height/2,width,height/2);
+    this.pgf.line(width/2,0,width/2,height);
 // Dibujar el trazo en el lienzo gráfico si pertenece a la forma y no está fuera de los margenes//
 if (this.esta_en_margenes() && this.pertenece_a_la_forma()) {
   push();
@@ -144,17 +155,23 @@ if (this.esta_en_margenes() && this.pertenece_a_la_forma()) {
   this.pgf.noStroke();
   this.pgf.fill(this.color_fig);
   //poner imagenes de trazo//
-  this.pgf.tint(this.color_fig);
+  //this.pgf.tint(this.color_fig);
   // hacer la mascara de los trazos
   //trazos con imgs//
    //this.pgf.image(this.trazo[this.cual],this.posX_fig,this.posY_fig);
-   //trazos circulos//
-  this.pgf.ellipse(this.posX_fig, this.posY_fig, this.tam_fig, this.tam_fig);
+   //descomentar para que se vean los circulos solo en la mascara
+ //trazos circulos//
+ this.pgf.ellipse(this.posX_fig, this.posY_fig, this.tam_fig, this.tam_fig);
   pop();
 }
-  /*---------------agregar un else if con como argumento !this.pertenece_a_la_forma()en el que el trazo decresca su opacidad
-  y cambie para mimetizarse con el fondo----------/*/
+/*else if(!this.pertenece_a_la_forma()){
+  push();
+  this.pgf.fill(this.color_fig2);
+  pop();
+}
 
+ //trazos circulos//
+ //this.pgf.ellipse(this.posX_fig, this.posY_fig, this.tam_fig, this.tam_fig);*/
 
     
    // Mostrar el pgraphic//

@@ -13,8 +13,6 @@ class trazo_fig {
     this.posY_fig=random(this.margen_tfig,height-this.margen_tfig);
     this.dx_fig;
     this.dy_fig;
-    this.angulo_izquierda;
-    this.angulo_derecha;
     this.vel_fig = random(2, 7);
     this.angulo_fig;
     this.largo_trazo = 0;
@@ -73,10 +71,8 @@ class trazo_fig {
 //funcion mover//
   mover() { 
 
-   console.log(this.largo_trazo);
     // Incrementar o decrementar largo_trazo en función de mouseX//
     this.largo_trazo+= map(mouseX, 0, width, -1, 1);
-
     // Restringir largo_trazo dentro del rango permitido//
     this.largo_trazo = constrain(this.largo_trazo, 0, this.max_largo_trazo);
     //se verifica si pasó el intervalo mínimo desde el último salto al principio antes de llamar a la función
@@ -95,16 +91,21 @@ class trazo_fig {
     
     //angulo//
      //rango derecha 210,270
-     this.angulo_derecha=map((mouseY + this.variacion + height) % height, height/2, height, 270, 180);
-     this.angulo_izquierda= map((mouseY + this.variacion) % height, 0, height/2, 270, 300);
+     //let angulo_derecha=map((mouseY + this.variacion + height) % height, 0, height, 270, 180);
+     let angulo_izquierda= map((mouseY + this.variacion+ height) % height, 0, height/2, -20, -40);
+     let angulo_derecha=200;
+     let angunlo_recto=270;
     //rango izquierda 270,300 
     // valores angulo x en funcion al mouse y//
-    if (mouseY > height/2) {
+    if (mouseY > height/2+50) {
       // En la mitad inferior de la pantalla, ángulos a la izquierda
-      this.angulo_fig =this.angulo_derecha;
-     } else if( mouseY< height/2) {
+      this.angulo_fig = angulo_derecha;
+      
+     } else if( mouseY< height/2-50) {
       // En la mitad superior de la pantalla, ángulos a la derecha
-      this.angulo_fig =this.angulo_izquierda;
+      this.angulo_fig = angulo_izquierda;
+    } else{
+     this.angulo_fig=angunlo_recto;
     }
    
    
@@ -114,8 +115,9 @@ class trazo_fig {
     this.dy_fig = this.vel_fig * sin(radians(this.angulo_fig));
 
     //variables de movimiento//
-    this.posX_fig = this.posX_fig + this.dx_fig;
     this.posY_fig = this.posY_fig + this.dy_fig;
+    this.posX_fig = this.posX_fig + this.dx_fig;
+    
   }
 
 
@@ -125,13 +127,19 @@ class trazo_fig {
   //funcion volver al estado inicial del trazo//
   saltaralprincipio() {
     //generar trazos en funcion a la mitad//
-    if (mouseY >= height/2) {
+    //arriba
+    if (mouseY >= height/2+50) {
       // Generar trazos al azar desde el punto cero de la pantalla a la mitad (izquierda)
-      this.posX_fig = random(0, width/2);
-    } else if (mouseY < height/2) {
+      this.posX_fig = random(0, width/3+100);
+      
+      //abajo//
+    } else if (mouseY < height/2-50) {
       // Generar trazos al azar desde la mitad hasta el ancho de la pantalla (derecha)
-      this.posX_fig = random(width/2, width);
+      this.posX_fig = random(width/3*2-100, width);
+    } else{
+      this.posX_fig = random(width/3*2-100, width/3+100);
     }
+
     /*si la posicion en x del trazo es menor a la mitad deberian moverse a la derecha
     para eso deberia invocar o el map derecho o cambiar  this.posX_fig = this.posX_fig + this.dx_fig;
     o ambos y vicebersa*/
@@ -145,9 +153,17 @@ class trazo_fig {
 /*se podrian añadir dos metodos, dibujar derecha e izquierda en función al mouse
 para que en lugar de cambiar la posicion pudiera generar otro segmento de trazos*/
   dibujar() {
-//lineas debug//
-    this.pgf.line(0,height/2,width,height/2);
+//lineas debug/
+    //lineas  centro
     this.pgf.line(width/2,0,width/2,height);
+
+    //lineas eje y
+    this.pgf.line(0,height/2-50,width,height/2-50);
+    this.pgf.line(0,height/2+50,width,height/2+50);
+    //lineas eje x
+    this.pgf.line(width/3+100,0,width/3+100,height);
+    this.pgf.line(width/3*2-100,0,width/3*2-100,height);
+  
 // Dibujar el trazo en el lienzo gráfico si pertenece a la forma y no está fuera de los margenes//
 if (this.esta_en_margenes() && this.pertenece_a_la_forma()) {
   push();

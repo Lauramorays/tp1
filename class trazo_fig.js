@@ -88,25 +88,20 @@ class trazo_fig {
 
     } 
 
-    
-    //angulo//
-     //rango derecha 210,270
-     //let angulo_derecha=map((mouseY + this.variacion + height) % height, 0, height, 270, 180);
-     let angulo_izquierda= map((mouseY + this.variacion+ height) % height, 0, height/2, -20, -40);
-     let angulo_derecha=200;
-     let angunlo_recto=270;
-    //rango izquierda 270,300 
-    // valores angulo x en funcion al mouse y//
-    if (mouseY > height/2+50) {
-      // En la mitad inferior de la pantalla, ángulos a la izquierda
-      this.angulo_fig = angulo_derecha;
-      
-     } else if( mouseY< height/2-50) {
-      // En la mitad superior de la pantalla, ángulos a la derecha
-      this.angulo_fig = angulo_izquierda;
-    } else{
-     this.angulo_fig=angunlo_recto;
+    let anguloInicial=270;
+    let direccionY = mouseY - pmouseY;
+
+    if (direccionY < 0) {
+      // El mouse se ha movido hacia arriba
+      this.angulo_fig -= 1; // Disminuir el ángulo
+    } else if (direccionY > 0) {
+      // El mouse se ha movido hacia abajo
+      this.angulo_fig += 1; // Aumentar el ángulo
     }
+
+    // Mapear el ángulo en función de la posición del mouse
+    this.angulo_fig = map(mouseY, height, 0, anguloInicial - 90,anguloInicial + 90);
+
    
    
     //direccion en x
@@ -130,13 +125,15 @@ class trazo_fig {
     //arriba
     if (mouseY >= height/2+50) {
       // Generar trazos al azar desde el punto cero de la pantalla a la mitad (izquierda)
+      //this.angulo_fig = this.angulo_izquierda;
       this.posX_fig = random(0, width/3+100);
-      
       //abajo//
     } else if (mouseY < height/2-50) {
       // Generar trazos al azar desde la mitad hasta el ancho de la pantalla (derecha)
+      //this.angulo_fig = this.angulo_derecha;
       this.posX_fig = random(width/3*2-100, width);
     } else{
+      //this.angulo_fig=this.angunlo_recto;
       this.posX_fig = random(width/3*2-100, width/3+100);
     }
 
